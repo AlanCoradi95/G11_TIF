@@ -1,6 +1,14 @@
 const db = require('../db/db.js');
 
 const getAllDetalleVenta = (req,res) => {
+    const sql = "SELECT * FROM detalle_venta";
+    db.query(sql, (err,results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+};
+
+const getAllDetalleVentaByVentaId = (req,res) => {
     const {id_venta} = req.params;
     const sql = "SELECT * FROM detalle_venta WHERE id_venta = ?";
     db.query(sql,[id_venta], (err,results) => {
@@ -51,6 +59,7 @@ const deleteDetalleVenta = (req, res) => {
 
 module.exports = {
     getAllDetalleVenta,
+    getAllDetalleVentaByVentaId,
     getDetalleVentaByProductoId,
     createDetalleVenta,
     updateDetalleVenta,
